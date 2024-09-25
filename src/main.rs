@@ -1,9 +1,11 @@
-use clap::{CommandFactory, Parser, Subcommand};
-use clap_complete::Shell;
-use eyre::{OptionExt, Result};
+use clap::{Parser, Subcommand};
+use eyre::Result;
+
+mod commands;
+use commands::{CliCommand, Completion};
 
 #[derive(Parser)]
-struct Cli {
+pub struct Cli {
     #[command(subcommand)]
     command: Command,
 }
@@ -19,10 +21,7 @@ enum Command {
     Config,
     Update,
     /// Generate shell completions.
-    Completion {
-        /// Shell to generate completions for.
-        shell: Option<Shell>,
-    },
+    Completion(<Completion as CliCommand>::Args),
     Status,
     List,
     Get,
@@ -40,46 +39,40 @@ enum Command {
     DeviceApproval,
     Serve,
 }
+impl Command {
+    pub fn handle(self) -> Result<()> {
+        match self {
+            Command::Login => todo!(),
+            Command::Logout => todo!(),
+            Command::Lock => todo!(),
+            Command::Unlock => todo!(),
+            Command::Sync => todo!(),
+            Command::Generate => todo!(),
+            Command::Encode => todo!(),
+            Command::Config => todo!(),
+            Command::Update => todo!(),
+            Command::Completion(args) => Completion::handle(args),
+            Command::Status => todo!(),
+            Command::List => todo!(),
+            Command::Get => todo!(),
+            Command::Create => todo!(),
+            Command::Edit => todo!(),
+            Command::Delete => todo!(),
+            Command::Restore => todo!(),
+            Command::Move => todo!(),
+            Command::Confirm => todo!(),
+            Command::Import => todo!(),
+            Command::Export => todo!(),
+            Command::Share => todo!(),
+            Command::Send => todo!(),
+            Command::Receive => todo!(),
+            Command::DeviceApproval => todo!(),
+            Command::Serve => todo!(),
+        }
+    }
+}
 
 fn main() -> Result<()> {
     let args = Cli::parse();
-    match args.command {
-        Command::Login => todo!(),
-        Command::Logout => todo!(),
-        Command::Lock => todo!(),
-        Command::Unlock => todo!(),
-        Command::Sync => todo!(),
-        Command::Generate => todo!(),
-        Command::Encode => todo!(),
-        Command::Config => todo!(),
-        Command::Update => todo!(),
-        Command::Completion { shell } => {
-            clap_complete::generate(
-                shell
-                    .or(Shell::from_env())
-                    .ok_or_eyre("Unknown shell detected")?,
-                &mut Cli::command(),
-                env!("CARGO_PKG_NAME"),
-                &mut std::io::stdout(),
-            );
-
-            Ok(())
-        }
-        Command::Status => todo!(),
-        Command::List => todo!(),
-        Command::Get => todo!(),
-        Command::Create => todo!(),
-        Command::Edit => todo!(),
-        Command::Delete => todo!(),
-        Command::Restore => todo!(),
-        Command::Move => todo!(),
-        Command::Confirm => todo!(),
-        Command::Import => todo!(),
-        Command::Export => todo!(),
-        Command::Share => todo!(),
-        Command::Send => todo!(),
-        Command::Receive => todo!(),
-        Command::DeviceApproval => todo!(),
-        Command::Serve => todo!(),
-    }
+    args.command.handle()
 }
