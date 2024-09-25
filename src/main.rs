@@ -1,4 +1,6 @@
-use clap::{Parser, Subcommand};
+use clap::{CommandFactory, Parser, Subcommand};
+use clap_complete::Shell;
+use eyre::{OptionExt, Result};
 
 #[derive(Parser)]
 struct Cli {
@@ -16,7 +18,11 @@ enum Command {
     Encode,
     Config,
     Update,
-    Completion,
+    /// Generate shell completions.
+    Completion {
+        /// Shell to generate completions for.
+        shell: Option<Shell>,
+    },
     Status,
     List,
     Get,
@@ -35,7 +41,7 @@ enum Command {
     Serve,
 }
 
-fn main() {
+fn main() -> Result<()> {
     let args = Cli::parse();
     match args.command {
         Command::Login => todo!(),
@@ -47,7 +53,18 @@ fn main() {
         Command::Encode => todo!(),
         Command::Config => todo!(),
         Command::Update => todo!(),
-        Command::Completion => todo!(),
+        Command::Completion { shell } => {
+            clap_complete::generate(
+                shell
+                    .or(Shell::from_env())
+                    .ok_or_eyre("Unknown shell detected")?,
+                &mut Cli::command(),
+                env!("CARGO_PKG_NAME"),
+                &mut std::io::stdout(),
+            );
+
+            Ok(())
+        }
         Command::Status => todo!(),
         Command::List => todo!(),
         Command::Get => todo!(),

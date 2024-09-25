@@ -5,3 +5,5 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.5.18", features = ["derive"] }
+clap_complete = "4.5.29"
+eyre = "0.6.12"
