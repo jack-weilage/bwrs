@@ -1,5 +1,8 @@
 use eyre::Result;
 
+mod login;
+pub use login::Login;
+
 mod completion;
 pub use completion::Completion;
 

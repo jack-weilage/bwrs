@@ -2,7 +2,8 @@ use clap::{Parser, Subcommand};
 use eyre::Result;
 
 mod commands;
-use commands::{CliCommand, Completion};
+use commands::{CliCommand, Completion, Login};
+mod api;
 
 #[derive(Parser)]
 pub struct Cli {
@@ -11,7 +12,8 @@ pub struct Cli {
 }
 #[derive(Subcommand)]
 enum Command {
-    Login,
+    /// Log into a user account.
+    Login(<Login as CliCommand>::Args),
     Logout,
     Lock,
     Unlock,
@@ -42,7 +44,7 @@ enum Command {
 impl Command {
     pub fn handle(self) -> Result<()> {
         match self {
-            Command::Login => todo!(),
+            Command::Login(args) => Login::handle(args),
             Command::Logout => todo!(),
             Command::Lock => todo!(),
             Command::Unlock => todo!(),
