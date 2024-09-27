@@ -2,7 +2,7 @@ use clap::{Parser, Subcommand};
 use eyre::Result;
 
 mod commands;
-use commands::{CliCommand, Completion, Login};
+use commands::{CliCommand, Completion, Encode, Login};
 mod api;
 mod crypto;
 
@@ -20,7 +20,8 @@ enum Command {
     Unlock,
     Sync,
     Generate,
-    Encode,
+    /// Base 64 encode stdin.
+    Encode(<Encode as CliCommand>::Args),
     Config,
     Update,
     /// Generate shell completions.
@@ -51,7 +52,7 @@ impl Command {
             Command::Unlock => todo!(),
             Command::Sync => todo!(),
             Command::Generate => todo!(),
-            Command::Encode => todo!(),
+            Command::Encode(args) => Encode::handle(args),
             Command::Config => todo!(),
             Command::Update => todo!(),
             Command::Completion(args) => Completion::handle(args),

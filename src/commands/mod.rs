@@ -3,6 +3,9 @@ use eyre::Result;
 mod login;
 pub use login::Login;
 
+mod encode;
+pub use encode::Encode;
+
 mod completion;
 pub use completion::Completion;
 
