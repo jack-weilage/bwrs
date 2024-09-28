@@ -18,3 +18,11 @@ serde_json = "1.0.128"
 serde_repr = "0.1.19"
 sha2 = "0.10.8"
 uuid = { version = "1.10.0", features = ["serde", "v4"] }
+
+[profile.dev]
+debug = 0
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
