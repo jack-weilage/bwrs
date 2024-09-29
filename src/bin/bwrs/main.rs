@@ -3,8 +3,6 @@ use eyre::Result;
 
 mod commands;
 use commands::{CliCommand, Completion, Encode, Login};
-mod api;
-mod crypto;
 
 #[derive(Parser)]
 pub struct Cli {

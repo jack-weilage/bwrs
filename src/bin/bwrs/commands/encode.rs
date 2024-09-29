@@ -3,7 +3,7 @@ use std::io::{IsTerminal, Read};
 use clap::Args;
 use eyre::eyre;
 
-use crate::crypto::Base64;
+use bwrs::crypto::Base64;
 
 use super::CliCommand;
 

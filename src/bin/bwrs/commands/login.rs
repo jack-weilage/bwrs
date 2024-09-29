@@ -1,4 +1,4 @@
-use crate::api::{
+use bwrs::api::{
     ApiClient, KdfConfig, KdfKind, LoginResult, TwoFactorProvider, TwoFactorVerification,
 };
 
