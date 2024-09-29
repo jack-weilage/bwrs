@@ -43,40 +43,36 @@ enum Command {
     DeviceApproval,
     Serve,
 }
-impl Command {
-    pub fn handle(self) -> Result<()> {
-        match self {
-            Command::Login(args) => Login::handle(args),
-            Command::Logout => todo!(),
-            Command::Lock => todo!(),
-            Command::Unlock => todo!(),
-            Command::Sync => todo!(),
-            Command::Generate => todo!(),
-            Command::Encode(args) => Encode::handle(args),
-            Command::Config => todo!(),
-            Command::Update => todo!(),
-            Command::Completion(args) => Completion::handle(args),
-            Command::Status => todo!(),
-            Command::List => todo!(),
-            Command::Get => todo!(),
-            Command::Create => todo!(),
-            Command::Edit => todo!(),
-            Command::Delete => todo!(),
-            Command::Restore => todo!(),
-            Command::Move => todo!(),
-            Command::Confirm => todo!(),
-            Command::Import => todo!(),
-            Command::Export => todo!(),
-            Command::Share => todo!(),
-            Command::Send => todo!(),
-            Command::Receive => todo!(),
-            Command::DeviceApproval => todo!(),
-            Command::Serve => todo!(),
-        }
-    }
-}
 
 fn main() -> Result<()> {
     let args = Cli::parse();
-    args.command.handle()
+
+    match args.command {
+        Command::Login(args) => Login::handle(args),
+        Command::Logout => todo!(),
+        Command::Lock => todo!(),
+        Command::Unlock => todo!(),
+        Command::Sync => todo!(),
+        Command::Generate => todo!(),
+        Command::Encode(args) => Encode::handle(args),
+        Command::Config => todo!(),
+        Command::Update => todo!(),
+        Command::Completion(args) => Completion::handle(args),
+        Command::Status => todo!(),
+        Command::List => todo!(),
+        Command::Get => todo!(),
+        Command::Create => todo!(),
+        Command::Edit => todo!(),
+        Command::Delete => todo!(),
+        Command::Restore => todo!(),
+        Command::Move => todo!(),
+        Command::Confirm => todo!(),
+        Command::Import => todo!(),
+        Command::Export => todo!(),
+        Command::Share => todo!(),
+        Command::Send => todo!(),
+        Command::Receive => todo!(),
+        Command::DeviceApproval => todo!(),
+        Command::Serve => todo!(),
+    }
 }
