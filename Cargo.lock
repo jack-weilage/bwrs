@@ -165,6 +165,7 @@ dependencies = [
  "serde_repr",
  "sha2",
  "uuid",
+ "zeroize",
 ]
 
 [[package]]

@@ -18,6 +18,7 @@ serde_json = "1.0.128"
 serde_repr = "0.1.19"
 sha2 = "0.10.8"
 uuid = { version = "1.10.0", features = ["serde", "v4"] }
+zeroize = "1.8.1"
 
 [profile.dev]
 debug = 0

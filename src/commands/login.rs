@@ -11,6 +11,7 @@ use dialoguer::{theme::ColorfulTheme, Input, Password, Select};
 use hkdf::Hkdf;
 use pbkdf2::pbkdf2_hmac_array;
 use sha2::{Digest, Sha256};
+use zeroize::Zeroize;
 
 #[derive(ValueEnum, Clone, Copy)]
 enum TwoStepMethod {
@@ -52,7 +53,7 @@ impl CliCommand for Login {
 
         let kdf_config = client.prelogin(&email)?;
 
-        let password: String = Password::with_theme(&ColorfulTheme::default())
+        let mut password: String = Password::with_theme(&ColorfulTheme::default())
             .with_prompt("Master password")
             .validate_with(|input: &String| {
                 if !input.trim().is_empty() {
@@ -96,6 +97,8 @@ impl CliCommand for Login {
             pbkdf2_hmac_array::<Sha256, 32>(&enc_key, password.as_bytes(), 1);
         let local_master_key_hash =
             pbkdf2_hmac_array::<Sha256, 32>(&enc_key, password.as_bytes(), 2);
+
+        password.zeroize();
 
         let hkdf = Hkdf::<Sha256>::from_prk(&enc_key).unwrap();
         hkdf.expand(b"enc", &mut enc_key).unwrap();
