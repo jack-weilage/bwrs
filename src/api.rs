@@ -270,9 +270,9 @@ pub struct TwoFactorRequiredResponse {
 
 #[derive(Serialize, Debug)]
 pub struct TwoFactorVerification {
-    #[serde(rename = "two_factor_token")]
+    #[serde(rename = "twoFactorToken")]
     pub token: String,
-    #[serde(rename = "two_factor_provider")]
+    #[serde(rename = "twoFactorProvider")]
     pub provider: TwoFactorProvider,
 }
 
