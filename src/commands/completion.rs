@@ -21,7 +21,7 @@ impl CliCommand for Completion {
                 .or(Shell::from_env())
                 .ok_or_eyre("Unknown shell detected")?,
             &mut Cli::command(),
-            env!("CARGO_PKG_NAME"),
+            env!("CARGO_BIN_NAME"),
             &mut std::io::stdout(),
         );
 
